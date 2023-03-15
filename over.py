@@ -18,6 +18,16 @@ plt.xlabel('Epoch')
 _ = plt.ylabel('Learning Rate')
 
 
+
+def get_callbacks(name):
+  return [
+    tfdocs.modeling.EpochDots(),
+    tf.keras.callbacks.EarlyStopping(monitor='val_binary_crossentropy', patience=200),
+    tf.keras.callbacks.TensorBoard(logdir/name),
+  ]
+
+
+
 def compile_and_fit(model, name, optimizer=None, max_epochs=10000):
   if optimizer is None:
     optimizer = get_optimizer()
